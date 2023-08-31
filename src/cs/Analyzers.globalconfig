@@ -5,5 +5,6 @@ is_global = true
 dotnet_diagnostic.CA1707.severity = error # example
 
 # StyleCop
+dotnet_diagnostic.SA1300.severity = none
 dotnet_diagnostic.SA1600.severity = none
 

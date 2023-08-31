@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- MSBuild settings -->
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>bottlenoselabs.Common</RootNamespace>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <!-- NuGet settings -->
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>bottlenoselabs.Common</PackageId>
+    <PackageDescription>Common C# code across all C# projects at Bottlenose Labs.</PackageDescription>
+    <RepositoryUrl>https://github.com/bottlenoselabs/library-cs-Common</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <!-- NuGet package references -->
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2023.2.0"/>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0-preview.7.23375.6"/>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-preview.7.23375.6"/>
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1"/>
+    <PackageReference Include="System.IO.Abstractions" Version="19.2.69"/>
+  </ItemGroup>
+
+</Project>

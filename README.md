@@ -1,3 +1,3 @@
-# Template for C# project
+# library-common-cs
 
-GitHub repository template for C# software projects at Bottlenose Labs.
+Common C# code across all C# projects at Bottlenose Labs.
