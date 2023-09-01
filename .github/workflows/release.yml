@@ -35,7 +35,7 @@ jobs:
         shell: bash
         run: |
           VERSION="${{ github.event.inputs.version }}"
-          if [[ -z "$VERSION" ]]
+          if [[ -z "$VERSION" ]]; then
             IS_PRERELEASE="${{ github.event.inputs.pre-release }}"
             if [[ "$IS_PRERELEASE" = "true" ]]; then
               VERSION="$(date +'%Y.%m.%d')-rc"
