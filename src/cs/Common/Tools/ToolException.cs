@@ -35,7 +35,6 @@ public sealed class ToolException : Exception
     private static string ToolName()
     {
         var skipFrames = 0;
-        var featureNamespace = typeof(ToolException).Namespace! + ".Tool";
 
         while (true)
         {
@@ -54,7 +53,7 @@ public sealed class ToolException : Exception
                 continue;
             }
 
-            if (!typeNamespace.StartsWith(featureNamespace, StringComparison.InvariantCulture))
+            if (!typeNamespace.StartsWith(typeof(ToolException).Namespace!, StringComparison.InvariantCulture))
             {
                 skipFrames++;
                 continue;

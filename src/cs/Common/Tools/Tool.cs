@@ -12,9 +12,9 @@ using Microsoft.Extensions.Logging;
 namespace bottlenoselabs.Common.Tools;
 
 /// <summary>
-///     A computation component.
+///     The base tool which does some action to provide value.
 /// </summary>
-/// <typeparam name="TUnsanitizedInput">The un-sanitized input.</typeparam>
+/// <typeparam name="TUnsanitizedInput">The un-sanitized JSON input.</typeparam>
 /// <typeparam name="TInput">The sanitized input.</typeparam>
 /// <typeparam name="TOutput">The output.</typeparam>
 [PublicAPI]
@@ -23,7 +23,7 @@ public abstract class Tool<TUnsanitizedInput, TInput, TOutput> : Tool
     where TOutput : ToolOutput<TInput>, new()
 {
     private readonly Stopwatch _stepStopwatch;
-    private readonly Stopwatch _stopwatch;
+    private readonly Stopwatch _allStopwatch;
     private readonly ToolInputSanitizer<TUnsanitizedInput, TInput> _inputSanitizer;
     private readonly ILogger<Tool<TUnsanitizedInput, TInput, TOutput>> _logger;
 
@@ -37,7 +37,7 @@ public abstract class Tool<TUnsanitizedInput, TInput, TOutput> : Tool
         : base(logger)
     {
         _logger = logger;
-        _stopwatch = new Stopwatch();
+        _allStopwatch = new Stopwatch();
         _stepStopwatch = new Stopwatch();
         _inputSanitizer = inputSanitizer;
         _fileSystem = fileSystem;
@@ -147,17 +147,17 @@ public abstract class Tool<TUnsanitizedInput, TInput, TOutput> : Tool
 
     private void Begin()
     {
-        _stopwatch.Reset();
+        _allStopwatch.Reset();
         _stepStopwatch.Reset();
         GarbageCollect();
         LogStarted();
-        _stopwatch.Start();
+        _allStopwatch.Start();
     }
 
     private void End(TOutput response)
     {
-        _stopwatch.Stop();
-        var timeSpan = _stopwatch.Elapsed;
+        _allStopwatch.Stop();
+        var timeSpan = _allStopwatch.Elapsed;
 
         response.Complete(Diagnostics.GetAll());
 
@@ -184,9 +184,9 @@ public abstract class Tool<TUnsanitizedInput, TInput, TOutput> : Tool
                 _ => LogLevel.Information
             };
 
+            // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
 #pragma warning disable CA1848
 #pragma warning disable CA2254
-            // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
             _logger.Log(logLevel, $"- {name} {message}");
 #pragma warning restore CA2254
 #pragma warning restore CA1848
