@@ -9,5 +9,4 @@ jobs:
 
   build-job:
     name: "Build"
-    needs: [bindgen-job]
     uses: "./.github/workflows/build.yml"
