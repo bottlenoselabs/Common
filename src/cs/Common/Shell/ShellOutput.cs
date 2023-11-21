@@ -3,13 +3,13 @@
 
 using JetBrains.Annotations;
 
-namespace bottlenoselabs.Common.CommandLine;
+namespace bottlenoselabs.Common;
 
 /// <summary>
 ///     The output of executing a command from command line.
 /// </summary>
 [PublicAPI]
-public class CommandLineOutput
+public class ShellOutput
 {
     /// <summary>
     ///     Gets the exit code.

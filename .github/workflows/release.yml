@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       pre-release:
-        description: 'Pre-release? (NOTE: candidates get uploaded to MyGet.org instead of NuGet.org.)'     
+        description: 'Is pre-release? (NOTE: Pre-releases are uploaded to MyGet.org instead of NuGet.org.)'     
         required: true
         default: 'true'
       version:

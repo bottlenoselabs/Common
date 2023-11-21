@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 using JetBrains.Annotations;
 
-namespace bottlenoselabs.Common.CommandLine;
+namespace bottlenoselabs.Common;
 
 [PublicAPI]
-public static class StringExtensions
+public static class Shell
 {
     /// <summary>
     ///     Runs a command-line command using a new process and shell.
@@ -27,8 +27,8 @@ public static class StringExtensions
     ///     is <c>null</c> and the operating system is Windows. Has no effect when <paramref name="fileName" /> is not
     ///     <c>null</c> or the operating system is not Windows.
     /// </param>
-    /// <returns>A <see cref="CommandLineOutput" /> instance.</returns>
-    public static CommandLineOutput ExecuteShellCommand(
+    /// <returns>A <see cref="ShellOutput" /> instance.</returns>
+    public static ShellOutput ExecuteShellCommand(
         this string command,
         string? workingDirectory = null,
         string? fileName = null,
@@ -49,7 +49,7 @@ public static class StringExtensions
 
         var outputString = stringBuilder.ToString();
 
-        var result = new CommandLineOutput
+        var result = new ShellOutput
         {
             ExitCode = process.ExitCode,
             Output = outputString
