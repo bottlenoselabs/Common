@@ -30,6 +30,11 @@ public abstract class Tool<TUnsanitizedInput, TInput, TOutput> : Tool
     private IDisposable? _loggerScopeStep;
     private readonly IFileSystem _fileSystem;
 
+    private JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions()
+    {
+        AllowTrailingCommas = true
+    };
+
     protected Tool(
         ILogger<Tool<TUnsanitizedInput, TInput, TOutput>> logger,
         ToolInputSanitizer<TUnsanitizedInput, TInput> inputSanitizer,
@@ -59,11 +64,7 @@ public abstract class Tool<TUnsanitizedInput, TInput, TOutput> : Tool
             throw new ToolInputSanitizationException($"The extract options file '{fullFilePath}' is empty.");
         }
 
-        var serializerOptions = new JsonSerializerOptions
-        {
-            AllowTrailingCommas = true
-        };
-        var unsanitizedInput = JsonSerializer.Deserialize<TUnsanitizedInput>(fileContents, serializerOptions);
+        var unsanitizedInput = JsonSerializer.Deserialize<TUnsanitizedInput>(fileContents, _jsonSerializerOptions);
         if (unsanitizedInput == null)
         {
             throw new ToolInputSanitizationException("Failed to deserialize the tool configuration file path.");
