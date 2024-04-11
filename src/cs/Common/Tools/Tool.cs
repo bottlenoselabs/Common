@@ -50,7 +50,7 @@ public abstract class Tool<TUnsanitizedInput, TInput, TOutput> : Tool
 
     protected DiagnosticsSink Diagnostics { get; } = new();
 
-    public TOutput Run(string configurationFilePath)
+    protected TOutput Run(string configurationFilePath)
     {
         var fullFilePath = _fileSystem.Path.GetFullPath(configurationFilePath);
         if (!_fileSystem.File.Exists(fullFilePath))
@@ -71,13 +71,13 @@ public abstract class Tool<TUnsanitizedInput, TInput, TOutput> : Tool
         }
 
         var workingDirectory = _fileSystem.Path.GetDirectoryName(fullFilePath)!;
-        var output = Run(unsanitizedInput, workingDirectory);
+        var output = RunInternal(unsanitizedInput, workingDirectory);
         return output;
     }
 
-    public TOutput Run(TUnsanitizedInput unsanitizedInput)
+    protected TOutput Run(TUnsanitizedInput unsanitizedInput, string? workingDirectory = null)
     {
-        var output = Run(unsanitizedInput, Environment.CurrentDirectory);
+        var output = RunInternal(unsanitizedInput, Environment.CurrentDirectory);
         return output;
     }
 
@@ -113,7 +113,7 @@ public abstract class Tool<TUnsanitizedInput, TInput, TOutput> : Tool
     }
 
     [DebuggerHidden]
-    private TOutput Run(TUnsanitizedInput unsanitizedInput, string? workingFileDirectory)
+    private TOutput RunInternal(TUnsanitizedInput unsanitizedInput, string? workingFileDirectory)
     {
         var output = new TOutput();
 
